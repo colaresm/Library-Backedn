@@ -5,10 +5,13 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Prediction {
-    VENTRICULAR("Ventricular"),
-    NORMAL("Normal"),
-    SUPRAVENTRICULAR("Supraventricular");
+public enum RentStatus {
+
+    DELAY("delay"),
+
+    ONTIME("onTime"),
+
+    RENTED("rented");
 
     private String value;
 }

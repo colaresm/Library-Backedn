@@ -12,7 +12,7 @@ import com.library.libraryWDA.model.enums.Position;
 import com.library.libraryWDA.repository.ClientRepository;
 import com.library.libraryWDA.service.ClientService;
 import com.library.libraryWDA.service.UserService;
-import com.library.libraryWDA.validation.ProfessionalValidator;
+import com.library.libraryWDA.validation.ClientValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,22 +33,22 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientMapper clientMapper;
 
-    private final ProfessionalValidator professionalValidator;
+    private final ClientValidator clientValidator;
 
     private final UserService userService;
 
     @Autowired
     public ClientServiceImpl(ClientRepository  clientRepository, ClientMapper clientMapper,
-                                   ProfessionalValidator professionalValidator, UserService userService) {
+                                   ClientValidator clientValidator, UserService userService) {
         this.clientRepository = clientRepository;
         this.clientMapper = clientMapper;
-        this.professionalValidator = professionalValidator;
+        this.clientValidator = clientValidator;
         this.userService = userService;
     }
 
     @Override
     public void create(ClientCreateRequest professionalCreateRequest) {
-        professionalValidator.validateForCreation(professionalCreateRequest);
+        clientValidator.validateForCreation(professionalCreateRequest);
 
         User userCreated = userService.create(professionalCreateRequest.getUserCreateRequest(), professionalCreateRequest.getPosition());
 
@@ -84,7 +84,7 @@ public class ClientServiceImpl implements ClientService {
     public void update(ClientUpdateRequest professionalUpdateRequest) {
         Client foundProfessional = getById(professionalUpdateRequest.getId());
 
-        professionalValidator.validateForUpdate(foundProfessional, professionalUpdateRequest);
+        clientValidator.validateForUpdate(foundProfessional, professionalUpdateRequest);
 
         User userUpdated = userService.update(professionalUpdateRequest.getUserUpdateRequest());
 

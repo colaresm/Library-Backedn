@@ -15,7 +15,7 @@ public class BookCreateRequest {
 
     @NotNull(message = "O campo data de lançamento não deve ser nulo")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
+    private LocalDate releaseDate;
 
     @NotNull(message = "O campo título do livro não deve ser nulo")
     private String title;

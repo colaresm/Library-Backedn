@@ -3,7 +3,6 @@ package com.library.libraryWDA.dto.client;
 import com.library.libraryWDA.dto.BasePersonRequest;
 import com.library.libraryWDA.dto.user.UserCreateRequest;
 import com.library.libraryWDA.model.enums.Position;
-import com.library.libraryWDA.validation.constraint.FutureDateConstraint;
 import com.library.libraryWDA.validation.constraint.OfAgeConstraint;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +11,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Data

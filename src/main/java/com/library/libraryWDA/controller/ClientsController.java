@@ -7,7 +7,6 @@ import com.library.libraryWDA.dto.client.ClientDetailsResponse;
 import com.library.libraryWDA.dto.client.ClientListItemResponse;
 import com.library.libraryWDA.dto.client.ClientUpdateRequest;
 import com.library.libraryWDA.service.ClientService;
-import com.library.libraryWDA.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +27,7 @@ public class ClientsController implements ClientsControllerDocs {
 
     @Autowired
     private ClientService professionalService;
-    private UserService userService;
+    
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -52,7 +51,7 @@ public class ClientsController implements ClientsControllerDocs {
 
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @GetMapping("/doctors/active")
+    @GetMapping("/clients/active")
     public ResponseEntity<List<ClientListItemResponse>> getAllActive() {
         return new ResponseEntity<>(professionalService.findAllActiveAndDoctors(), HttpStatus.OK);
     }

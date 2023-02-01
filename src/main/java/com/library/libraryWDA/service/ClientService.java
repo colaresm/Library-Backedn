@@ -27,6 +27,7 @@ public interface ClientService {
     Client getById(UUID id);
 
     ClientDetailsResponse getClientById(UUID id);
+    
     Client geClientByUser(User user);
 
     List<ClientListItemResponse> findAllActiveAndDoctors();

@@ -14,10 +14,10 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 
 @Component
-public class ProfessionalValidator {
+public class ClientValidator {
 
     @Autowired
-    private ClientRepository professionalRepository;
+    private ClientRepository clientRepository;
 
     public void validateForCreation(ClientCreateRequest professionalCreateRequest) {
         validateCPF(professionalCreateRequest.getCpf());
@@ -31,13 +31,13 @@ public class ProfessionalValidator {
     }
 
     private void validateCPF(String CPF) {
-        professionalRepository.findByCpf(CPF).ifPresent(professional -> {
+        clientRepository.findByCpf(CPF).ifPresent(professional -> {
             throw new ProfessionalAlreadyExistsException("CPF", CPF); });
     }
 
 
     private void validateEmail(String email) {
-        professionalRepository.findByEmail(email).ifPresent(professional -> {
+        clientRepository.findByEmail(email).ifPresent(professional -> {
             throw new ProfessionalAlreadyExistsException("e-mail", email); });
     }
 
