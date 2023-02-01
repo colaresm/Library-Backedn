@@ -26,5 +26,4 @@ docker container rm -f <container-name>
 If you want, you can contribute in
 [issue tracker](https://github.com/wda-trainee/startuplog-frontend/issues/new/choose).
 
-Dockerization developed by
-[Edson Fernandes](https://github.com/edsonfsousa).
+ 
