@@ -22,26 +22,13 @@ public class ClientDetailsResponse {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
-    private LocalDate admission;
-
-    private String crm;
-  
     private String name;
 
     private String cpf;   
 
     private String email;
  
-    private String firstPhone;
-
-    private String secondPhone;
-
-    private String rg;
-
     private Document profilePicture;
-
-    private AddressRequest address;
 
     private UserListResponse user;
 

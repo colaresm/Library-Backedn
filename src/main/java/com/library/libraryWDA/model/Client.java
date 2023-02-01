@@ -29,20 +29,6 @@ public class Client extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String firstPhone;
-
-    private String secondPhone;
-
-    @Column(nullable = false, unique = true)
-    private String rg;
-
-    @Column(nullable = false)
-    private LocalDate admission;
-
-    @Column( )
-    private String crm;
-
     @Column(columnDefinition = "boolean default true", insertable = false)
     private Boolean isActive;
 
@@ -54,16 +40,7 @@ public class Client extends BaseEntity {
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "address_id", nullable = false)
-    private Address address;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "profile_picture_id")
     private Document profilePicture;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "professional")
-    private List<Schedule> Schedules= new ArrayList<>();
- 
-    
-     
 }

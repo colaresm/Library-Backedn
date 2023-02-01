@@ -82,7 +82,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 String token = authorizationHeader.substring("Bearer ".length());
                 String username = jwtTokenManager.getUsernameFromToken(token);
                 User user = userService.getUser(username);
-                Client professional = professionalService.getProfessionalByUser(user);
+                Client professional = professionalService.geClientByUser(user);
 
                 userPayload.put("username", user.getUsername());
                 userPayload.put("role", user.getRoles().stream().findFirst().get().getName());
@@ -113,12 +113,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public UUID getProfessionalIdLogged() {
         User userFound = userService.getUser(getAuthentication().getName());
-        Client professionalFound = professionalService.getProfessionalByUser(userFound);
+        Client professionalFound = professionalService.geClientByUser(userFound);
         return professionalFound.getId();
     }
 
     public Client getProfessionalLogged() {
         User userFound = userService.getUser(getAuthentication().getName());
-        return professionalService.getProfessionalByUser(userFound);
+        return professionalService.geClientByUser(userFound);
     }
 }

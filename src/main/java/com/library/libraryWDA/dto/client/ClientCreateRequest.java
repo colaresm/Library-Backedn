@@ -25,16 +25,8 @@ public class ClientCreateRequest extends BasePersonRequest {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @NotNull(message = "O campo admissão não deve ser nulo")
-    @FutureDateConstraint
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
-    private LocalDate admission;
-
-    @Pattern(regexp = "^$|(^[0-9]{6}/(?:AC|AL|AP|AM|BA|CE|DF|GO|ES|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SP|SC|SE|TO))$", message = "CRM inválido.")
-    private String crm;
-
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "O campo cargo não deve ser nulo")
+    @NotNull(message = "O campo tipo de usuário")
     private Position position;
 
     @Valid

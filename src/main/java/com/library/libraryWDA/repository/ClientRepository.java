@@ -18,10 +18,6 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
 
     Optional<Client> findByEmail(String email);
 
-    Optional<Client> findByCrm(String crm);
-
-    Optional<Client> findByRg(String rg);
-
     Page<Client> findAllByIsActive(Boolean isActive, Pageable pageable);
 
     Client findByUser(User user);

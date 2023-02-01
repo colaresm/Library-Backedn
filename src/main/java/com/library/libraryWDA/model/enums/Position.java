@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Position {
     ADMIN("Admin"),
-    ATTENDANT("Attendant"),
-    DOCTOR("Doctor");
+
+    PEOPLE("People");
 
     private String value;
 

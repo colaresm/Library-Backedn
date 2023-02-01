@@ -34,8 +34,7 @@ public class InitialAuthenticationConfig {
     private void initializeRoles(){
         if(roleRepository.count() == 0) {
             roleRepository.save(new Role("ROLE_ADMIN"));
-            roleRepository.save(new Role("ROLE_ATTENDANT"));
-            roleRepository.save(new Role("ROLE_DOCTOR"));
+            roleRepository.save(new Role("ROLE_PEOPLE"));
 
             initializeUser();
         }
@@ -44,20 +43,13 @@ public class InitialAuthenticationConfig {
     private void initializeUser(){
         if(professionalRepository.count() == 0) {
             UserCreateRequest user = new UserCreateRequest(defaultUserEmail, defaultUserPassword);
-            AddressRequest address = new AddressRequest("Av. Dom Luís, 209", "60160-230", "Ceará", "Meireles", "Fortaleza", "Próximo a paraça Portugal");
             ClientCreateRequest admin = new ClientCreateRequest();
             admin.setUserCreateRequest(user);
-            admin.setAdmission(LocalDate.parse("2020-08-23"));
             admin.setBirthDate(LocalDate.parse("2000-10-20"));
-            admin.setCrm("555533/CE");
             admin.setPosition(Position.valueOf("ADMIN"));
             admin.setCpf("824.994.050-40");
-            admin.setEmail("canonecgtest@gmail.com");
-            admin.setFirstPhone("86997685455");
+            admin.setEmail("librarywda@gmail.com");
             admin.setName("library Admin");
-            admin.setRg("983892839398");
-            admin.setSecondPhone("85998009898");
-            admin.setAddressRequest(address);
             professionalService.create(admin);
         }
     }

@@ -19,12 +19,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Api("Clients module management")
-public interface ProfessionalsControllerDocs {
-
-    @ApiOperation("Professional creation operation")
+public interface ClientsControllerDocs {
+    @ApiOperation("Client creation operation")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Success professional creation"),
-            @ApiResponse(code = 400, message = "Missing required fields, wrong field range value or professional already registered on system")
+            @ApiResponse(code = 400, message = "Missing required fields, wrong field range value or client already registered on system")
     })
     void create(ClientCreateRequest professionalCreateRequest, MultipartFile profilePicture);
 
@@ -34,36 +33,33 @@ public interface ProfessionalsControllerDocs {
     })
     public ResponseEntity<PageResult<ClientListItemResponse>> getPage(String status, int page, int size);
 
-    @ApiOperation("List all registered doctors")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Returns the paginated doctors list"),
-    })
-    public ResponseEntity<PageResult<ClientListItemResponse>> getAllDoctors(String status, int page, int size);
+
 
     @CrossOrigin(origins = {"*"})
-    @ApiOperation("Professional deactivation by id")
+    @ApiOperation("Client deactivation by id")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Success professional deactivation"),
-            @ApiResponse(code = 404, message = "Professional not found")
+            @ApiResponse(code = 204, message = "Success client deactivation"),
+            @ApiResponse(code = 404, message = "Client not found")
     })
     void setDeactivated(UUID id);
     @CrossOrigin(origins = {"*"})
-    @ApiOperation("Professional activation by id")
+    @ApiOperation("Client activation by id")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Success professional activation"),
-            @ApiResponse(code = 404, message = "Professional not found")
+            @ApiResponse(code = 204, message = "Success client activation"),
+            @ApiResponse(code = 404, message = "Cli" +
+                    "client not found")
     })
     void setActivated(UUID id);
 
-    @ApiOperation("Professional update operation")
+    @ApiOperation("Client update operation")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Success professional update"),
-            @ApiResponse(code = 400, message = "Missing required fields, wrong field range value or professional already registered on system"),
-            @ApiResponse(code = 404, message = "Professional not found")
+            @ApiResponse(code = 204, message = "Success Client update"),
+            @ApiResponse(code = 400, message = "Missing required fields, wrong field range value or Client already registered on system"),
+            @ApiResponse(code = 404, message = "Client not found")
     })
-    void update(ClientUpdateRequest professionalUpdateRequest, MultipartFile profilePicture);
-    @ApiOperation("GET Professional by Id")
-    ResponseEntity<ClientDetailsResponse> getProfessionalById(@PathVariable("id")  UUID id);
+    void update(ClientUpdateRequest clientUpdateRequest, MultipartFile profilePicture);
+    @ApiOperation("GET Client by Id")
+    ResponseEntity<ClientDetailsResponse> getClientById(@PathVariable("id")  UUID id);
 
     @ApiOperation("List all activated Clients")
     @ApiResponses(value = {

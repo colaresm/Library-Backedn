@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             case ADMIN: addRoleToUser(userToCreate.getUsername(), "ROLE_ADMIN");
                 break;
 
-            case ATTENDANT: addRoleToUser(userToCreate.getUsername(), "ROLE_ATTENDANT");
+            case PEOPLE: addRoleToUser(userToCreate.getUsername(), "ROLE_PEOPLE");
                 break;
 
             default: addRoleToUser(userToCreate.getUsername(), "ROLE_DOCTOR");

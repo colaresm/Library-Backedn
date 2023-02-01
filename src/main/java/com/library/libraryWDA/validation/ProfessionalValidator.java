@@ -21,16 +21,12 @@ public class ProfessionalValidator {
 
     public void validateForCreation(ClientCreateRequest professionalCreateRequest) {
         validateCPF(professionalCreateRequest.getCpf());
-        validateRG(professionalCreateRequest.getRg());
         validateEmail(professionalCreateRequest.getEmail());
-        if(professionalCreateRequest.getPosition()==Position.valueOf("DOCTOR")){ validateCRM(professionalCreateRequest.getCrm());}
-       
+
     }
 
     public void validateForUpdate(Client foundProfessional, ClientUpdateRequest professionalUpdateRequest) {
         validateCpfUpdate(foundProfessional.getCpf(), professionalUpdateRequest.getCpf());
-        if(professionalUpdateRequest.getPosition()==Position.valueOf("DOCTOR")){ validateCrmUpdate(foundProfessional.getCrm(), professionalUpdateRequest.getCrm());}
-        validateRgUpdate(foundProfessional.getRg(), professionalUpdateRequest.getRg());
         validateEmailUpdate(foundProfessional.getEmail(), professionalUpdateRequest.getEmail());
     }
 
@@ -39,15 +35,6 @@ public class ProfessionalValidator {
             throw new ProfessionalAlreadyExistsException("CPF", CPF); });
     }
 
-    private void validateCRM(String CRM) {
-        professionalRepository.findByCrm(CRM).ifPresent(professional -> {
-            throw new ProfessionalAlreadyExistsException("CRM", CRM); });
-    }
-
-    private void validateRG(String RG) {
-        professionalRepository.findByRg(RG).ifPresent(professional -> {
-            throw new ProfessionalAlreadyExistsException("RG", RG); });
-    }
 
     private void validateEmail(String email) {
         professionalRepository.findByEmail(email).ifPresent(professional -> {
@@ -57,18 +44,6 @@ public class ProfessionalValidator {
     private void validateCpfUpdate(String oldCPF, String newCPF) {
         if(!Objects.equals(oldCPF, newCPF)) {
             validateCPF(newCPF);
-        }
-    }
-
-    private void validateCrmUpdate(String oldCRM, String newCRM) {
-        if(!Objects.equals(oldCRM, newCRM)) {
-            validateCRM(newCRM);
-        }
-    }
-
-    private void validateRgUpdate(String oldRG, String newRG) {
-        if(!Objects.equals(oldRG, newRG)) {
-            validateRG(newRG);
         }
     }
 

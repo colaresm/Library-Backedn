@@ -29,19 +29,19 @@ import java.util.stream.Collectors;
 @Transactional
 public class ClientServiceImpl implements ClientService {
 
-    private final ClientRepository professionalRepository;
+    private final ClientRepository clientRepository;
 
-    private final ClientMapper professionalMapper;
+    private final ClientMapper clientMapper;
 
     private final ProfessionalValidator professionalValidator;
 
     private final UserService userService;
 
     @Autowired
-    public ClientServiceImpl(ClientRepository professionalRepository, ClientMapper professionalMapper,
+    public ClientServiceImpl(ClientRepository  clientRepository, ClientMapper clientMapper,
                                    ProfessionalValidator professionalValidator, UserService userService) {
-        this.professionalRepository = professionalRepository;
-        this.professionalMapper = professionalMapper;
+        this.clientRepository = clientRepository;
+        this.clientMapper = clientMapper;
         this.professionalValidator = professionalValidator;
         this.userService = userService;
     }
@@ -52,16 +52,16 @@ public class ClientServiceImpl implements ClientService {
 
         User userCreated = userService.create(professionalCreateRequest.getUserCreateRequest(), professionalCreateRequest.getPosition());
 
-        Client professionalToCreate = professionalMapper.toModel(professionalCreateRequest);
+        Client professionalToCreate = clientMapper.toModel(professionalCreateRequest);
         professionalToCreate.setUser(userCreated);
-        professionalRepository.save(professionalToCreate);
+        clientRepository.save(professionalToCreate);
     }
     @Override
     public Page<ClientListItemResponse> findAll(String status, Pageable pageable) {
         if(status != null) {
-            return professionalRepository.findAllByIsActive(status.equals("active"), pageable).map(professionalMapper::toProfessionalListItemResponse);
+            return clientRepository.findAllByIsActive(status.equals("active"), pageable).map(clientMapper::toProfessionalListItemResponse);
         } else {
-            return professionalRepository.findAll(pageable).map(professionalMapper::toProfessionalListItemResponse);
+            return clientRepository.findAll(pageable).map(clientMapper::toProfessionalListItemResponse);
         }
     }
 
@@ -69,7 +69,7 @@ public class ClientServiceImpl implements ClientService {
     public void updateToDeactivated(UUID id) {
         Client professionalToUpdate = getById(id);
         professionalToUpdate.setIsActive(false);
-        professionalRepository.save(professionalToUpdate);
+        clientRepository.save(professionalToUpdate);
     }
 
     @Override
@@ -77,10 +77,7 @@ public class ClientServiceImpl implements ClientService {
         Client professionalToUpdate = getById(id);
         professionalToUpdate.setIsActive(true);
 
-        if(!professionalToUpdate.getIsActive())
-            professionalToUpdate.setAdmission(professionalToUpdate.getUpdatedAt().toLocalDate());
-
-        professionalRepository.save(professionalToUpdate);
+        clientRepository.save(professionalToUpdate);
     }
 
     @Override
@@ -91,38 +88,37 @@ public class ClientServiceImpl implements ClientService {
 
         User userUpdated = userService.update(professionalUpdateRequest.getUserUpdateRequest());
 
-        Client professionalToUpdate = professionalMapper.toModel(professionalUpdateRequest);
+        Client professionalToUpdate = clientMapper.toModel(professionalUpdateRequest);
         professionalToUpdate.setUser(userUpdated);
         professionalToUpdate.setCreatedAt(foundProfessional.getCreatedAt());
         professionalToUpdate.setIsActive(foundProfessional.getIsActive());
-        professionalToUpdate.getAddress().setId(foundProfessional.getAddress().getId());
-        professionalToUpdate.getAddress().setCreatedAt(foundProfessional.getCreatedAt());
 
-        professionalRepository.save(professionalToUpdate);
+
+        clientRepository.save(professionalToUpdate);
     }
 
     @Override
     public Client getById(UUID id) {
-        return professionalRepository.findById(id).orElseThrow(() -> new ProfessionalNotFoundException(id));
+        return clientRepository.findById(id).orElseThrow(() -> new ProfessionalNotFoundException(id));
     }
     @Override
-    public ClientDetailsResponse getProfessionalById(UUID id) {
+    public ClientDetailsResponse getClientById(UUID id) {
         Client foundProfessional= getById(id);
-        return professionalMapper.toProfessionalDetailsResponse(foundProfessional);
+        return clientMapper.toProfessionalDetailsResponse(foundProfessional);
     }
 
     @Override
-    public Client getProfessionalByUser(User user){
-        return professionalRepository.findByUser(user);
+    public Client geClientByUser(User user){
+        return clientRepository.findByUser(user);
     }
 
     @Override
     public List<ClientListItemResponse> findAllActiveAndDoctors() {
-        return professionalRepository.findAllByIsActiveTrueAndPosition(Position.DOCTOR).stream().map(professionalMapper::toProfessionalListItemResponse).collect(Collectors.toList());
+        return clientRepository.findAllByIsActiveTrueAndPosition(Position.PEOPLE).stream().map(clientMapper::toProfessionalListItemResponse).collect(Collectors.toList());
     }
 
     @Override
     public Page<ClientListItemResponse> findAllDoctors( Pageable pageable) {
-        return professionalRepository.findAllByPosition(Position.DOCTOR, pageable).map(professionalMapper::toProfessionalListItemResponse);
+        return clientRepository.findAllByPosition(Position.PEOPLE, pageable).map(clientMapper::toProfessionalListItemResponse);
     }
 }

@@ -22,10 +22,6 @@ public class ClientListItemResponse {
     private Position position;
 
     private String email;
-
-    private String firstPhone;
-
-    private LocalDate admission;
-
+    
     private Boolean isActive;
 }
