@@ -17,9 +17,11 @@ import java.io.IOException;
 @Mapper(componentModel = "spring")
 public interface ClientMapper {
 
+
     @Mapping(target = "user", source = "userCreateRequest")
     @Mapping(target = "profilePicture", source = "profilePicture", qualifiedByName = "multipartFileToDocument")
     Client toModel(ClientCreateRequest professionalCreateRequest);
+
 
     @Mapping(target = "profilePicture", source = "profilePicture", qualifiedByName = "multipartFileToDocument")
     Client toModel(ClientUpdateRequest professionalUpdateRequest);

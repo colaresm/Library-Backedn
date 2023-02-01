@@ -39,7 +39,7 @@ public class ClientsController implements ClientsControllerDocs {
         professionalService.create(professionalCreateRequest);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ATTENDANT')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/page")
     public ResponseEntity<PageResult<ClientListItemResponse>> getPage(@RequestParam(required = false) String status,
                                                                             @RequestParam(defaultValue = "0") int page,
@@ -51,7 +51,7 @@ public class ClientsController implements ClientsControllerDocs {
 
 
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ATTENDANT')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/doctors/active")
     public ResponseEntity<List<ClientListItemResponse>> getAllActive() {
         return new ResponseEntity<>(professionalService.findAllActiveAndDoctors(), HttpStatus.OK);
